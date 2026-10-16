@@ -2727,7 +2727,7 @@ function hideSite(){
 
 <script>
 	/* ===== PASSWORD SYSTEM ===== */
-const DEFAULT_PASSWORD = 'Noto';
+const DEFAULT_PASSWORD = 'Breaker12';
 
 function getPassword() {
     return localStorage.getItem('vault_pw') || DEFAULT_PASSWORD;
@@ -2740,7 +2740,7 @@ function checkPassword() {
         document.getElementById('pwOverlay').style.display = 'none';
         err.textContent = '';
     } else {
-        err.textContent = '✕ Incorrect password. Try again.';
+        err.textContent = 'Try again.(bum)';
         document.getElementById('pwInput').value = '';
         document.getElementById('pwInput').focus();
     }
