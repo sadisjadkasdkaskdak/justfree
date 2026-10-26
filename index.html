@@ -3,75 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Apex Vault</title>
+    <title>Grace Work Vault</title>
     <link id="site-favicon" rel="icon" type="image/png" href="https://s3.amazonaws.com/cstest/mb/2025/01/GraceChristian_Eagles_Logo2.png.220x220_q95.png">
     <style>
-
-
-
-}
-.pw-title {
-    font-size: 48px;
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: 2px;
-    margin-bottom: 32px;
-    text-align: center;
-}
-.pw-label {
-    font-size: 13px;
-    color: #ffffff;
-    margin-bottom: 6px;
-    letter-spacing: 0.5px;
-}
-.pw-input {
-    width: 280px;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 2px solid #ffffff;
-    background: #000000;
-    color: #ffffff;
-    font-size: 15px;
-    text-align: center;
-    letter-spacing: 3px;
-}
-.pw-input:focus { outline: none; border-color: rgba(255,255,255,0.6); }
-.pw-btn {
-    width: 280px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #ffffff;
-    background: #000000;
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 4px;
-}
-.pw-btn:hover { background: #ffffff; color: #000000; }
-.pw-error {
-    font-size: 12px;
-    color: rgba(255, 80, 80, 0.9);
-    min-height: 16px;
-}
-
-/* GEAR BUTTON in sidebar */
-.sidebar-gear {
-    background: transparent;
-    border: 2px solid transparent;
-    color: rgba(255,255,255,0.35);
-    font-size: 18px;
-    width: 46px;
-    height: 36px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 10px 0;
-    transition: all 0.15s;
-}
-.sidebar-gear:hover { color: var(--accent); transform: rotate(45deg); background: rgba(30,144,255,0.06); }
 
         #constellation-canvas{
             position:fixed;
@@ -326,16 +260,6 @@
 </head>
 <body>
 
-
-<!-- PASSWORD SCREEN -->
-<div class="pw-overlay" id="pwOverlay">
-    <div class="pw-title">The Vault</div>
-    <div class="pw-label">Input password</div>
-    <input class="pw-input" type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
-    <button class="pw-btn" onclick="checkPassword()">Enter</button>
-    <div class="pw-error" id="pwError"></div>
-</div>
-
 <canvas id="constellation-canvas"></canvas>
     <!-- Sidebar and content (original functionality preserved) -->
     <div class="sidebar" id="sidebar"></div>
@@ -354,12 +278,12 @@
         <header>
             <div class="logo"><img src="https://i.ibb.co/99Lc2mGt/GCSeagle.png" alt="Vault logo"></div>
             <div>
-                <h2>The Vault</h2>
-                <h3>Version 2.2.0.0</h3>
+                <h2>Grace Work Vault</h2>
+                <h3>Version 2.1.5.0</h3>
 				<a class="back-link"
 				   href="https://sites.google.com/gracechristian.net/graceworkvault/home"
 				   target="_blank">
-				   ← Back to The Vault Website
+				   ← Back to GRACE Work Vault Website
 				</a>
             </div>
         </header>
@@ -2712,72 +2636,6 @@ function hideSite(){
 
 
 
-</script>
-
-<script>
-	/* ===== PASSWORD SYSTEM ===== */
-const DEFAULT_PASSWORD = 'password';
-
-function getPassword() {
-    return localStorage.getItem('vault_pw') || DEFAULT_PASSWORD;
-}
-
-function checkPassword() {
-    const input = document.getElementById('pwInput').value;
-    const err = document.getElementById('pwError');
-    if (input === getPassword()) {
-        document.getElementById('pwOverlay').style.display = 'none';
-        err.textContent = '';
-    } else {
-        err.textContent = 'Try again.(bum)';
-        document.getElementById('pwInput').value = '';
-        document.getElementById('pwInput').focus();
-    }
-}
-
-// Allow Enter key on password field
-document.getElementById('pwInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') checkPassword();
-});
-
-/* ===== CHANGE PASSWORD MODAL ===== */
-function openChpw() {
-    document.getElementById('chpwOverlay').classList.add('open');
-    document.getElementById('chpwCurrent').value = '';
-    document.getElementById('chpwNew').value = '';
-    document.getElementById('chpwConfirm').value = '';
-    document.getElementById('chpwMsg').textContent = '';
-    document.getElementById('chpwMsg').style.color = '';
-}
-function closeChpw() {
-    document.getElementById('chpwOverlay').classList.remove('open');
-}
-function saveNewPassword() {
-    const current = document.getElementById('chpwCurrent').value;
-    const newPw = document.getElementById('chpwNew').value;
-    const confirm = document.getElementById('chpwConfirm').value;
-    const msg = document.getElementById('chpwMsg');
-
-    if (current !== getPassword()) {
-        msg.style.color = 'rgba(255,80,80,0.9)';
-        msg.textContent = '✕ Current password is incorrect.';
-        return;
-    }
-    if (newPw.length < 4) {
-        msg.style.color = 'rgba(255,80,80,0.9)';
-        msg.textContent = '✕ New password must be at least 4 characters.';
-        return;
-    }
-    if (newPw !== confirm) {
-        msg.style.color = 'rgba(255,80,80,0.9)';
-        msg.textContent = '✕ Passwords do not match.';
-        return;
-    }
-    localStorage.setItem('vault_pw', newPw);
-    msg.style.color = '#4caf50';
-    msg.textContent = '✓ Password updated!';
-    setTimeout(closeChpw, 1200);
-}
 </script>
 
 <script>
