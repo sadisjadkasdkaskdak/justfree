@@ -1,0 +1,201 @@
+cat > /mnt/user-data/outputs/useless-web.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Useless Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e8192c; --red-dark: #b50f1f; --red-light: #ff4d5e;
+    --blue: #0a2463; --white: #f5f0eb;
+  }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background-color: var(--blue);
+    font-family: 'DM Mono', monospace;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; position: relative;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px; pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: ''; position: fixed; top: -40%; right: -10%; width: 55%; height: 180%;
+    background: var(--red); transform: skewX(-12deg); opacity: 0.07; pointer-events: none; z-index: 0;
+  }
+  .container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2rem; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red-light); margin-bottom: 18px; opacity: 0.9; }
+  h1 { font-family: 'Black Han Sans', sans-serif; font-size: clamp(52px, 9vw, 108px); font-weight: 400; line-height: 0.9; color: var(--white); letter-spacing: -0.02em; margin-bottom: 8px; text-shadow: 6px 6px 0px var(--red-dark); }
+  h1 span { color: var(--red); display: block; }
+  .subtitle { font-size: 12px; color: rgba(245,240,235,0.4); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 52px; margin-top: 16px; }
+  .btn-wrap { position: relative; margin-bottom: 40px; }
+  .btn-wrap::before {
+    content: 'PLEASE'; position: absolute; top: 7px; left: 7px; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Black Han Sans', sans-serif; font-size: 26px; letter-spacing: 0.12em;
+    background: var(--red-dark); color: transparent; padding: 20px 64px; pointer-events: none;
+  }
+  #main-btn {
+    position: relative; font-family: 'Black Han Sans', sans-serif; font-size: 26px;
+    letter-spacing: 0.12em; padding: 20px 64px; background: var(--red); color: var(--white);
+    border: none; cursor: pointer; transition: transform 0.08s ease, background 0.12s;
+    outline: none; display: flex; align-items: center; gap: 10px; min-width: 220px; justify-content: center;
+  }
+  #main-btn:hover:not(:disabled) { background: var(--red-light); transform: translate(-2px, -2px); }
+  #main-btn:active:not(:disabled) { transform: translate(5px, 5px); background: var(--red-dark); }
+  #main-btn:disabled { opacity: 0.6; cursor: wait; }
+  .status { min-height: 64px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  #msg { font-size: 13px; color: rgba(245,240,235,0.55); letter-spacing: 0.05em; font-style: italic; min-height: 18px; }
+  #last-site { font-size: 11px; color: rgba(245,240,235,0.3); letter-spacing: 0.04em; min-height: 16px; max-width: 480px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #last-site a { color: var(--red-light); text-decoration: none; border-bottom: 1px solid rgba(232,25,44,0.3); }
+  #last-site a:hover { color: var(--white); }
+  #counter { margin-top: 6px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: transparent; background: rgba(245,240,235,0.08); border: 1px solid rgba(245,240,235,0.1); padding: 5px 14px; min-height: 26px; transition: color 0.3s; }
+  #counter.visible { color: rgba(245,240,235,0.45); }
+  .corner { position: fixed; width: 32px; height: 32px; opacity: 0.25; }
+  .corner svg { width: 100%; height: 100%; }
+  .tl { top: 24px; left: 24px; } .tr { top: 24px; right: 24px; transform: rotate(90deg); }
+  .bl { bottom: 24px; left: 24px; transform: rotate(270deg); } .br { bottom: 24px; right: 24px; transform: rotate(180deg); }
+  #flash { position: fixed; inset: 0; background: var(--red); opacity: 0; pointer-events: none; z-index: 100; transition: opacity 0.05s; }
+  #flash.bang { opacity: 0.12; }
+  .spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(245,240,235,0.3); border-top-color: var(--white); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+  #main-btn.loading .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="flash"></div>
+<div class="corner tl"><svg viewBox="0 0 32 32" fill="none"><path d="M2 30 L2 2 L30 2" stroke="#f5f0eb" stroke-width="2"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 32 32" fill="none"><path d="M2 30 L2 2 L30 2" stroke="#f5f0eb" stroke-width="2"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 32 32" fill="none"><path d="M2 30 L2 2 L30 2" stroke="#f5f0eb" stroke-width="2"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 32 32" fill="none"><path d="M2 30 L2 2 L30 2" stroke="#f5f0eb" stroke-width="2"/></svg></div>
+
+<div class="container">
+  <p class="eyebrow">[ a random internet rabbit hole ]</p>
+  <h1>THE<span>USELESS</span>WEB</h1>
+  <p class="subtitle">truly random &mdash; no set list &mdash; sfw filter on</p>
+  <div class="btn-wrap">
+    <button id="main-btn">PLEASE <span class="spinner"></span></button>
+  </div>
+  <div class="status">
+    <div id="msg">Click the button. You know you want to.</div>
+    <div id="last-site"></div>
+    <div id="counter"></div>
+  </div>
+</div>
+
+<script>
+const BLACKLIST = [
+  'porn','xxx','sex','nude','naked','adult','nsfw','hentai','escort',
+  'onlyfans','fetish','erotic','cam4','xvideo','xhamster','redtube',
+  'youporn','brazzers','playboy','penthouse','hustler','bangbros',
+  'realitykings','naughty','milf','pussy','cock','boobs','tits',
+  'fuck','gore','drug','weed','cannabis','cocaine','casino',
+  'gambling','poker','slots','torrent','pirate','crack','warez'
+];
+
+function isClean(url) {
+  const lower = url.toLowerCase();
+  return !BLACKLIST.some(w => lower.includes(w));
+}
+
+const messages = [
+  "Buckle up.", "There's no turning back.", "Your productivity is not my concern.",
+  "This is exactly what you needed.", "Science cannot explain this.", "You asked for it.",
+  "Completely essential content.", "10/10 waste of time.", "Opening a portal to weirdness...",
+  "Abandoning all common sense...", "Goodbye, free time.", "Don't blame me.",
+  "Sending you somewhere important.", "This will change nothing and everything.",
+];
+
+async function tryWayback() {
+  const year = 2005 + Math.floor(Math.random() * 17);
+  const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+  const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+  const ts = `${year}${month}${day}120000`;
+  const offset = Math.floor(Math.random() * 10000);
+  const cdx = `https://web.archive.org/cdx/search/cdx?output=json&fl=original&limit=1&offset=${offset}&from=${ts}&to=${year}1231235959&statuscode=200&filter=mimetype:text/html&collapse=urlkey`;
+  const res = await fetch(cdx);
+  const json = await res.json();
+  if (json && json.length > 1 && json[1][0]) {
+    const url = json[1][0];
+    if (isClean(url)) return url;
+  }
+  return null;
+}
+
+async function tryHN() {
+  const id = Math.floor(Math.random() * 30000000) + 5000000;
+  const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+  const item = await res.json();
+  if (item && item.url && item.type === 'story' && isClean(item.url)) return item.url;
+  return null;
+}
+
+async function tryWikipedia() {
+  const langs = ['en','en','en','simple','fr','de','es','it','pt'];
+  const lang = langs[Math.floor(Math.random() * langs.length)];
+  const res = await fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*`);
+  const json = await res.json();
+  const page = json?.query?.random?.[0];
+  if (page) return `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(page.title.replace(/ /g,'_'))}`;
+  return null;
+}
+
+function tryWiby() {
+  return Promise.resolve('https://wiby.me/surprise/');
+}
+
+const strategies = [tryWayback, tryHN, tryWikipedia, tryWiby];
+let stratIdx = 0;
+
+async function getRandomUrl() {
+  for (let i = 0; i < strategies.length * 2; i++) {
+    const fn = strategies[(stratIdx + i) % strategies.length];
+    try {
+      const url = await Promise.race([fn(), new Promise((_,rej) => setTimeout(() => rej(), 5000))]);
+      if (url) { stratIdx = (stratIdx + i + 1) % strategies.length; return url; }
+    } catch(e) {}
+  }
+  return null;
+}
+
+let count = 0;
+const btn = document.getElementById('main-btn');
+const msgEl = document.getElementById('msg');
+const lastSite = document.getElementById('last-site');
+const counter = document.getElementById('counter');
+const flash = document.getElementById('flash');
+
+btn.addEventListener('click', async () => {
+  btn.disabled = true;
+  btn.classList.add('loading');
+  msgEl.textContent = 'Searching the internet...';
+  flash.classList.add('bang');
+  setTimeout(() => flash.classList.remove('bang'), 80);
+
+  const url = await getRandomUrl();
+
+  if (!url) {
+    msgEl.textContent = 'Could not find a page. Try again!';
+  } else {
+    count++;
+    msgEl.textContent = messages[Math.floor(Math.random() * messages.length)];
+    const display = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    lastSite.innerHTML = `last: <a href="${url}" target="_blank" rel="noopener noreferrer">${display.length > 60 ? display.slice(0,57)+'...' : display}</a>`;
+    counter.textContent = `${count} site${count === 1 ? '' : 's'} visited`;
+    counter.classList.add('visible');
+    window.open(url, '_blank');
+  }
+
+  btn.disabled = false;
+  btn.classList.remove('loading');
+});
+</script>
+</body>
+</html>
+HTMLEOF
+echo "done"
