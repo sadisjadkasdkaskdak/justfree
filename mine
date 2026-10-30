@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full select-none">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Minesweeper HTML5 Canvas Transcendant</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;700;800&family=VT323&display=swap');
+
+        /* Theme CSS Custom Variables */
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #151d2a;
+            --border-color: #2a364f;
+            --lcd-bg: #030712;
+            --lcd-text: #ef4444;
+            --font-lcd: 'Share Tech Mono', monospace;
+            
+            /* Canvas Theme Colors */
+            --c-cell-unrevealed: #273549;
+            --c-cell-border: #3b4d66;
+            --c-cell-revealed: #0e1626;
+            --c-cell-revealed-border: #1a2538;
+            --c-grid-bg: #060a12;
+            --c-text-light: #f8fafc;
+        }
+
+        .theme-retro {
+            --bg-main: #008080;
+            --bg-card: #c0c0c0;
+            --border-color: #808080;
+            --lcd-bg: #000000;
+            --lcd-text: #ff0000;
+            --font-lcd: 'VT323', monospace;
+
+            --c-cell-unrevealed: #c0c0c0;
+            --c-cell-border: #ffffff;
+            --c-cell-revealed: #c0c0c0;
+            --c-cell-revealed-border: #808080;
+            --c-grid-bg: #808080;
+            --c-text-light: #000000;
+        }
+
+        .theme-neon {
+            --bg-main: #060112;
+            --bg-card: #12042b;
+            --border-color: #00f3ff;
+            --lcd-bg: #020008;
+            --lcd-text: #00f3ff;
+            --font-lcd: 'Share Tech Mono', monospace;
+
+            --c-cell-unrevealed: #220847;
+            --c-cell-border: #00f3ff;
+            --c-cell-revealed: #090117;
+            --c-cell-revealed-border: #ff0077;
+            --c-grid-bg: #020008;
+            --c-text-light: #00f3ff;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--c-text-light);
+            font-family: 'Inter', sans-serif;
+            touch-action: none;
+            overflow: hidden;
+        }
+
+        .game-card {
+            background-color: var(--bg-card);
+            border-color: var(--border-color);
+        }
+
+        /* LCD Display Styling */
+        .lcd-display {
+            font-family: var(--font-lcd);
+            background-color: var(--lcd-bg);
+            color: var(--lcd-text);
+            text-shadow: 0 0 10px var(--lcd-text);
+            letter-spacing: 2px;
+        }
+
+        /* Retro Bevel Borders for Retro Theme */
+        .theme-retro .retro-bevel {
+            border-style: solid;
+            border-width: 3px;
+            border-color: #ffffff #808080 #808080 #ffffff;
+        }
+        .theme-retro .retro-inset {
+            border-style: solid;
+            border-width: 2px;
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        /* Canvas Cursor Modes */
+        canvas {
+            cursor: pointer;
+            touch-action: none;
+        }
+        canvas.panning {
+            cursor: grabbing !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-between antialiased">
+
+    <!-- Header Navbar -->
+    <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-3 py-2.5 flex flex-wrap items-center justify-between gap-2">
+            
+            <!-- Title -->
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">💣</span>
+                <div>
+                    <h1 class="text-lg font-extrabold text-white tracking-wide flex items-center gap-1.5 leading-none">
+                        MINESWEEPER <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-600 text-white font-bold uppercase tracking-wider">Canvas 2D</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Toolbar Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+                <!-- Preset Dropdown -->
+                <select id="presetSelect" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="beginner">Beginner (9x9, 10 Mines)</option>
+                    <option value="intermediate">Intermediate (16x16, 40 Mines)</option>
+                    <option value="expert">Expert (30x16, 99 Mines)</option>
+                    <option value="transcendant" selected>⚡ Transcendant (100x100, 1800 Mines)</option>
+                    <option value="custom">⚙️ Custom...</option>
+                </select>
+
+                <!-- Theme Selector -->
+                <select id="themeSelect" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option value="dark">🌙 Dark</option>
+                    <option value="retro">🖥️ Retro 95</option>
+                    <option value="neon">⚡ Cyber Neon</option>
+                </select>
+
+                <!-- High Scores Button -->
+                <button id="btnStats" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition flex items-center gap-1">
+                    🏆 <span class="hidden sm:inline">Scores</span>
+                </button>
+
+                <!-- Audio Toggle -->
+                <button id="btnAudioToggle" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 transition" title="Toggle Sound">
+                    <span id="audioIcon">🔊</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Game Area -->
+    <main class="flex-grow flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden relative">
+        
+        <!-- Game Container Frame -->
+        <div class="game-card border-2 rounded-2xl p-3 sm:p-5 shadow-2xl w-full max-w-6xl flex flex-col items-center retro-bevel transition-all">
+            
+            <!-- LCD Counter & Reset Header -->
+            <div class="w-full bg-slate-950/80 rounded-xl p-2.5 mb-3 flex items-center justify-between border border-slate-800 shadow-inner retro-inset">
+                
+                <!-- Mine Counter -->
+                <div class="flex flex-col items-center">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">MINES</span>
+                    <div id="mineCounter" class="lcd-display text-2xl sm:text-3xl font-bold px-2.5 py-0.5 rounded border border-red-950/40 min-w-[75px] text-center">
+                        1800
+                    </div>
+                </div>
+
+                <!-- Smiley Reset Button -->
+                <button id="btnReset" class="w-11 h-11 bg-slate-700 hover:bg-slate-600 border-2 border-slate-500 active:border-slate-400 rounded-full flex items-center justify-center text-2xl shadow-md transform active:scale-95 transition cursor-pointer" title="Reset Game">
+                    <span id="smileyIcon">😊</span>
+                </button>
+
+                <!-- Timer Counter -->
+                <div class="flex flex-col items-center">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">TIME</span>
+                    <div id="timerDisplay" class="lcd-display text-2xl sm:text-3xl font-bold px-2.5 py-0.5 rounded border border-red-950/40 min-w-[75px] text-center">
+                        0000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Viewport Control Bar -->
+            <div class="w-full flex flex-wrap items-center justify-between gap-2 mb-2 bg-slate-900/60 p-2 rounded-xl border border-slate-800 text-xs">
+                
+                <!-- Mobile Dig / Flag / Pan Tools -->
+                <div class="flex items-center gap-1.5">
+                    <button id="btnToolToggle" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
+                        <span>Mode:</span>
+                        <span id="toolStatus" class="px-2 py-0.5 rounded bg-blue-600 text-white">⛏️ DIG</span>
+                    </button>
+                    <button id="btnPanToggle" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-lg font-medium">
+                        <span id="panStatus">🖐️ Pan: Off</span>
+                    </button>
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="flex items-center gap-1">
+                    <span class="text-slate-400 font-medium mr-1 hidden sm:inline">Zoom:</span>
+                    <button id="btnZoomOut" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-2.5 py-1 rounded-lg font-bold" title="Zoom Out">-</button>
+                    <span id="zoomLabel" class="font-mono text-slate-300 px-1 min-w-[42px] text-center font-bold">100%</span>
+                    <button id="btnZoomIn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-2.5 py-1 rounded-lg font-bold" title="Zoom In">+</button>
+                    <button id="btnZoomFit" class="bg-blue-900/60 hover:bg-blue-800 text-blue-200 border border-blue-700 px-2 py-1 rounded-lg font-semibold ml-1">Fit</button>
+                    <button id="btnZoomReset" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-2 py-1 rounded-lg font-semibold">1:1</button>
+                </div>
+            </div>
+
+            <!-- Canvas Viewport Box -->
+            <div id="canvasViewport" class="w-full h-[58vh] min-h-[360px] rounded-xl border-2 border-slate-800 bg-slate-950 relative overflow-hidden flex items-center justify-center shadow-inner">
+                <canvas id="gameCanvas" class="block w-full h-full"></canvas>
+            </div>
+
+            <!-- Bottom Keyboard/Mouse Helpers -->
+            <div class="mt-2 text-[11px] text-slate-400 text-center flex flex-wrap justify-center gap-x-4 gap-y-1">
+                <span>🖱️ <strong>Click:</strong> Dig</span>
+                <span>🚩 <strong>Right-Click / Hold:</strong> Flag</span>
+                <span>⚡ <strong>Number Click:</strong> Chord</span>
+                <span>🖐️ <strong>Drag / Scroll:</strong> Pan & Zoom</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Difficulty Modal -->
+    <div id="customModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-xs w-full shadow-2xl">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">⚙️ Custom Grid Settings</h3>
+            <div class="space-y-3.5 text-sm">
+                <div>
+                    <label class="block text-slate-300 mb-1 font-semibold">Rows (5 - 100)</label>
+                    <input type="number" id="inputRows" min="5" max="100" value="20" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1 font-semibold">Columns (5 - 100)</label>
+                    <input type="number" id="inputCols" min="5" max="100" value="30" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1 font-semibold">Mine Count</label>
+                    <input type="number" id="inputMines" min="1" max="5000" value="100" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div class="flex gap-2 mt-6">
+                <button id="btnCancelCustom" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg font-semibold transition">Cancel</button>
+                <button id="btnApplyCustom" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-lg font-semibold transition">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- High Scores Modal -->
+    <div id="statsModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
+                <span>🏆 High Scores (Best Times)</span>
+                <span class="text-xl">⏱️</span>
+            </h3>
+            <div class="space-y-2 mb-6 text-sm">
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                    <span class="font-semibold text-slate-300">Beginner (9x9)</span>
+                    <span id="bestBeginner" class="font-mono font-bold text-yellow-400">--</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                    <span class="font-semibold text-slate-300">Intermediate (16x16)</span>
+                    <span id="bestIntermediate" class="font-mono font-bold text-yellow-400">--</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                    <span class="font-semibold text-slate-300">Expert (30x16)</span>
+                    <span id="bestExpert" class="font-mono font-bold text-yellow-400">--</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-800/80 p-3 rounded-xl border border-slate-700/60 border-l-4 border-l-red-500">
+                    <span class="font-bold text-red-400">⚡ Transcendant (100x100)</span>
+                    <span id="bestTranscendant" class="font-mono font-bold text-yellow-400">--</span>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button id="btnClearStats" class="bg-red-950 hover:bg-red-900 text-red-300 border border-red-800 px-3 py-2 rounded-lg text-xs font-bold transition">Clear Stats</button>
+                <button id="btnCloseStats" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-2 rounded-lg font-semibold transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over / Win Game Overlay Banner -->
+    <div id="endOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4 z-40 transition-opacity duration-300">
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl transform scale-100 animate-in fade-in zoom-in-95">
+            <div id="overlayIcon" class="text-5xl mb-2 animate-bounce">🎉</div>
+            <h2 id="overlayTitle" class="text-2xl font-black text-white mb-1">VICTORY!</h2>
+            <p id="overlayMessage" class="text-sm text-slate-300 mb-5">You cleared the board in 120 seconds!</p>
+            <button id="btnOverlayRestart" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-xl font-bold shadow-lg transition">Play Again</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application -->
+    <script>
+        /**
+         * Web Audio API Synthesizer Sound Generator
+         */
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.muted = false;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playPop() {
+                if (this.muted) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(450, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.04);
+
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.04);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.04);
+            }
+
+            playFlag() {
+                if (this.muted) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+                osc.frequency.setValueAtTime(900, this.ctx.currentTime + 0.03);
+
+                gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.05);
+            }
+
+            playChord() {
+                if (this.muted) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.06);
+
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.06);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.06);
+            }
+
+            playExplosion() {
+                if (this.muted) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const bufferSize = this.ctx.sampleRate * 0.45;
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(650, this.ctx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.45);
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.45);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                noise.start();
+                noise.stop(this.ctx.currentTime + 0.45);
+            }
+
+            playWin() {
+                if (this.muted) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const startTime = this.ctx.currentTime + idx * 0.09;
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, startTime);
+
+                    gain.gain.setValueAtTime(0.15, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.28);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.28);
+                });
+            }
+        }
+
+        /**
+         * Ultra-Fast HTML5 2D Canvas Engine
+         */
+        class CanvasMinesweeper {
+            constructor() {
+                // Preset Configurations
+                this.presets = {
+                    beginner: { rows: 9, cols: 9, mines: 10 },
+                    intermediate: { rows: 16, cols: 16, mines: 40 },
+                    expert: { rows: 16, cols: 30, mines: 99 },
+                    transcendant: { rows: 100, cols: 100, mines: 1800 }
+                };
+
+                this.currentPreset = 'transcendant';
+                this.rows = 100;
+                this.cols = 100;
+                this.totalMines = 1800;
+                this.totalCells = 10000;
+
+                // Typed Arrays for Memory Efficiency & Speed
+                // State constants: 0 = Hidden, 1 = Revealed, 2 = Flagged, 3 = Question
+                this.mines = null;       // Uint8Array(1) or 0
+                this.cellState = null;   // Uint8Array state
+                this.counts = null;      // Uint8Array neighbors 0..8
+
+                this.gameState = 'idle'; // 'idle', 'playing', 'won', 'lost'
+                this.firstClick = true;
+                this.flagsPlaced = 0;
+                this.revealedCount = 0;
+                this.timer = 0;
+                this.timerInterval = null;
+
+                // Viewport & Pan / Zoom Engine
+                this.baseCellSize = 32; // base size in pixels
+                this.zoomLevel = 1.0;
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.isPanning = false;
+                this.panStartX = 0;
+                this.panStartY = 0;
+                this.activeTool = 'dig'; // 'dig' or 'flag'
+                this.panMode = false;
+                this.currentTheme = 'dark';
+
+                // DOM Caches
+                this.viewportEl = document.getElementById('canvasViewport');
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+
+                this.mineCounterEl = document.getElementById('mineCounter');
+                this.timerEl = document.getElementById('timerDisplay');
+                this.smileyIcon = document.getElementById('smileyIcon');
+                this.zoomLabel = document.getElementById('zoomLabel');
+                this.presetSelect = document.getElementById('presetSelect');
+                this.themeSelect = document.getElementById('themeSelect');
+                this.toolStatus = document.getElementById('toolStatus');
+                this.panStatus = document.getElementById('panStatus');
+
+                // Overlays
+                this.endOverlay = document.getElementById('endOverlay');
+                this.customModal = document.getElementById('customModal');
+                this.statsModal = document.getElementById('statsModal');
+
+                // Sound
+                this.sound = new SoundEngine();
+
+                // High-DPI Canvas Setup
+                this.dpr = window.devicePixelRatio || 1;
+
+                this.initEventListeners();
+                this.applyTheme('dark');
+                this.startNewGame();
+
+                // Start Render Animation Loop
+                this.requestRender();
+            }
+
+            // Cell State Constants
+            static STATE_HIDDEN = 0;
+            static STATE_REVEALED = 1;
+            static STATE_FLAGGED = 2;
+            static STATE_QUESTION = 3;
+
+            // Colors Palette Map
+            numberColors = {
+                1: '#3b82f6', // Blue
+                2: '#22c55e', // Green
+                3: '#ef4444', // Red
+                4: '#a855f7', // Purple
+                5: '#f59e0b', // Amber
+                6: '#06b6d4', // Cyan
+                7: '#ec4899', // Pink
+                8: '#94a3b8'  // Slate
+            };
+
+            initEventListeners() {
+                // Window Resize handling
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    this.requestRender();
+                });
+
+                // Preset selector
+                this.presetSelect.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    if (val === 'custom') {
+                        this.openCustomModal();
+                    } else {
+                        this.currentPreset = val;
+                        const cfg = this.presets[val];
+                        this.rows = cfg.rows;
+                        this.cols = cfg.cols;
+                        this.totalMines = cfg.mines;
+                        this.startNewGame();
+                    }
+                });
+
+                // Theme selector
+                this.themeSelect.addEventListener('change', (e) => {
+                    this.applyTheme(e.target.value);
+                });
+
+                // Reset Button
+                document.getElementById('btnReset').addEventListener('click', () => {
+                    this.sound.init();
+                    this.startNewGame();
+                });
+
+                // Tool Toggle
+                document.getElementById('btnToolToggle').addEventListener('click', () => {
+                    this.activeTool = this.activeTool === 'dig' ? 'flag' : 'dig';
+                    this.toolStatus.textContent = this.activeTool === 'dig' ? '⛏️ DIG' : '🚩 FLAG';
+                    this.toolStatus.className = this.activeTool === 'dig' ? 'px-2 py-0.5 rounded bg-blue-600 text-white font-bold' : 'px-2 py-0.5 rounded bg-red-600 text-white font-bold';
+                });
+
+                // Pan Toggle
+                document.getElementById('btnPanToggle').addEventListener('click', () => {
+                    this.panMode = !this.panMode;
+                    this.panStatus.textContent = this.panMode ? '🖐️ Pan: On' : '🖐️ Pan: Off';
+                    this.canvas.classList.toggle('panning', this.panMode);
+                });
+
+                // Zoom Buttons
+                document.getElementById('btnZoomIn').addEventListener('click', () => this.zoomAtCenter(1.25));
+                document.getElementById('btnZoomOut').addEventListener('click', () => this.zoomAtCenter(0.8));
+                document.getElementById('btnZoomFit').addEventListener('click', () => this.fitToViewport());
+                document.getElementById('btnZoomReset').addEventListener('click', () => {
+                    this.zoomLevel = 1.0;
+                    this.centerBoard();
+                    this.requestRender();
+                });
+
+                // Audio Toggle
+                document.getElementById('btnAudioToggle').addEventListener('click', () => {
+                    this.sound.muted = !this.sound.muted;
+                    document.getElementById('audioIcon').textContent = this.sound.muted ? '🔇' : '🔊';
+                });
+
+                // Custom Modal
+                document.getElementById('btnCancelCustom').addEventListener('click', () => {
+                    this.customModal.classList.add('hidden');
+                    this.presetSelect.value = this.currentPreset;
+                });
+                document.getElementById('btnApplyCustom').addEventListener('click', () => {
+                    let r = parseInt(document.getElementById('inputRows').value, 10) || 10;
+                    let c = parseInt(document.getElementById('inputCols').value, 10) || 10;
+                    let m = parseInt(document.getElementById('inputMines').value, 10) || 10;
+
+                    r = Math.max(5, Math.min(100, r));
+                    c = Math.max(5, Math.min(100, c));
+                    m = Math.max(1, Math.min(Math.floor(r * c * 0.8), m));
+
+                    this.rows = r;
+                    this.cols = c;
+                    this.totalMines = m;
+                    this.currentPreset = 'custom';
+                    this.customModal.classList.add('hidden');
+                    this.startNewGame();
+                });
+
+                // Stats Modal
+                document.getElementById('btnStats').addEventListener('click', () => {
+                    this.renderStatsUI();
+                    this.statsModal.classList.remove('hidden');
+                });
+                document.getElementById('btnCloseStats').addEventListener('click', () => this.statsModal.classList.add('hidden'));
+                document.getElementById('btnClearStats').addEventListener('click', () => {
+                    localStorage.removeItem('minesweeper_canvas_stats');
+                    this.renderStatsUI();
+                });
+
+                // Overlay Restart Button
+                document.getElementById('btnOverlayRestart').addEventListener('click', () => {
+                    this.endOverlay.classList.add('hidden');
+                    this.startNewGame();
+                });
+
+                // Canvas Pointer & Mouse Events
+                this.setupCanvasPointerEvents();
+            }
+
+            openCustomModal() {
+                document.getElementById('inputRows').value = this.rows;
+                document.getElementById('inputCols').value = this.cols;
+                document.getElementById('inputMines').value = this.totalMines;
+                this.customModal.classList.remove('hidden');
+            }
+
+            applyTheme(theme) {
+                this.currentTheme = theme;
+                document.body.classList.remove('theme-retro', 'theme-neon');
+                if (theme === 'retro') document.body.classList.add('theme-retro');
+                if (theme === 'neon') document.body.classList.add('theme-neon');
+                this.requestRender();
+            }
+
+            setSmiley(state) {
+                switch (state) {
+                    case 'surprised': this.smileyIcon.textContent = '😮'; break;
+                    case 'dead': this.smileyIcon.textContent = '😵'; break;
+                    case 'cool': this.smileyIcon.textContent = '😎'; break;
+                    default: this.smileyIcon.textContent = '😊'; break;
+                }
+            }
+
+            startNewGame() {
+                this.totalCells = this.rows * this.cols;
+                this.mines = new Uint8Array(this.totalCells);
+                this.cellState = new Uint8Array(this.totalCells);
+                this.counts = new Uint8Array(this.totalCells);
+
+                this.gameState = 'idle';
+                this.firstClick = true;
+                this.flagsPlaced = 0;
+                this.revealedCount = 0;
+                this.stopTimer();
+                this.timer = 0;
+
+                this.updateTimerDisplay();
+                this.updateMineCounter();
+                this.setSmiley('normal');
+                this.endOverlay.classList.add('hidden');
+
+                this.resizeCanvas();
+                this.fitToViewport();
+                this.requestRender();
+            }
+
+            resizeCanvas() {
+                const rect = this.viewportEl.getBoundingClientRect();
+                this.canvas.width = rect.width * this.dpr;
+                this.canvas.height = rect.height * this.dpr;
+                this.ctx.scale(this.dpr, this.dpr);
+            }
+
+            centerBoard() {
+                const rect = this.viewportEl.getBoundingClientRect();
+                const boardW = this.cols * this.baseCellSize * this.zoomLevel;
+                const boardH = this.rows * this.baseCellSize * this.zoomLevel;
+
+                this.offsetX = (rect.width - boardW) / 2;
+                this.offsetY = (rect.height - boardH) / 2;
+                this.updateZoomLabel();
+            }
+
+            fitToViewport() {
+                const rect = this.viewportEl.getBoundingClientRect();
+                const scaleX = (rect.width - 24) / (this.cols * this.baseCellSize);
+                const scaleY = (rect.height - 24) / (this.rows * this.baseCellSize);
+
+                this.zoomLevel = Math.max(0.15, Math.min(1.5, Math.min(scaleX, scaleY)));
+                this.centerBoard();
+                this.requestRender();
+            }
+
+            zoomAtPoint(factor, clientX, clientY) {
+                const rect = this.viewportEl.getBoundingClientRect();
+                const px = clientX - rect.left;
+                const py = clientY - rect.top;
+
+                const worldX = (px - this.offsetX) / this.zoomLevel;
+                const worldY = (py - this.offsetY) / this.zoomLevel;
+
+                const newZoom = Math.max(0.15, Math.min(3.0, this.zoomLevel * factor));
+                this.zoomLevel = newZoom;
+
+                this.offsetX = px - worldX * newZoom;
+                this.offsetY = py - worldY * newZoom;
+
+                this.updateZoomLabel();
+                this.requestRender();
+            }
+
+            zoomAtCenter(factor) {
+                const rect = this.viewportEl.getBoundingClientRect();
+                this.zoomAtPoint(factor, rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
+
+            updateZoomLabel() {
+                this.zoomLabel.textContent = `${Math.round(this.zoomLevel * 100)}%`;
+            }
+
+            generateMines(firstIdx) {
+                const safeZone = new Set();
+                const firstR = Math.floor(firstIdx / this.cols);
+                const firstC = firstIdx % this.cols;
+
+                // Guaranteed 3x3 surrounding safe zone
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        const nr = firstR + dr;
+                        const nc = firstC + dc;
+                        if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                            safeZone.add(nr * this.cols + nc);
+                        }
+                    }
+                }
+
+                let placed = 0;
+                while (placed < this.totalMines) {
+                    const rnd = Math.floor(Math.random() * this.totalCells);
+                    if (!safeZone.has(rnd) && this.mines[rnd] === 0) {
+                        this.mines[rnd] = 1;
+                        placed++;
+                    }
+                }
+
+                // Compute Neighbor Counts
+                for (let i = 0; i < this.totalCells; i++) {
+                    if (this.mines[i] === 0) {
+                        const r = Math.floor(i / this.cols);
+                        const c = i % this.cols;
+                        let count = 0;
+
+                        for (let dr = -1; dr <= 1; dr++) {
+                            for (let dc = -1; dc <= 1; dc++) {
+                                if (dr === 0 && dc === 0) continue;
+                                const nr = r + dr;
+                                const nc = c + dc;
+                                if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                                    if (this.mines[nr * this.cols + nc] === 1) count++;
+                                }
+                            }
+                        }
+                        this.counts[i] = count;
+                    }
+                }
+            }
+
+            /**
+             * Setup High-Performance Pointer / Mouse Engine for Canvas
+             */
+            setupCanvasPointerEvents() {
+                let isPointerDown = false;
+                let startX = 0, startY = 0;
+                let dragDistance = 0;
+                let longTouchTimer = null;
+                let isLongTouch = false;
+
+                // Mouse Wheel Zoom
+                this.viewportEl.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const factor = e.deltaY < 0 ? 1.15 : 0.85;
+                    this.zoomAtPoint(factor, e.clientX, e.clientY);
+                }, { passive: false });
+
+                // Pointer Down
+                this.canvas.addEventListener('pointerdown', (e) => {
+                    if (e.button === 1) { // Middle click always pans
+                        this.isPanning = true;
+                        this.panStartX = e.clientX - this.offsetX;
+                        this.panStartY = e.clientY - this.offsetY;
+                        this.canvas.classList.add('panning');
+                        return;
+                    }
+
+                    isPointerDown = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    dragDistance = 0;
+                    isLongTouch = false;
+
+                    if (this.panMode) {
+                        this.isPanning = true;
+                        this.panStartX = e.clientX - this.offsetX;
+                        this.panStartY = e.clientY - this.offsetY;
+                        this.canvas.classList.add('panning');
+                        return;
+                    }
+
+                    // Long press for touch device flagging
+                    if (e.pointerType === 'touch') {
+                        longTouchTimer = setTimeout(() => {
+                            isLongTouch = true;
+                            const idx = this.getCellFromCoords(e.clientX, e.clientY);
+                            if (idx !== null) {
+                                this.handleRightClick(idx);
+                                if (navigator.vibrate) navigator.vibrate(35);
+                            }
+                        }, 300);
+                    }
+
+                    if (this.gameState === 'idle' || this.gameState === 'playing') {
+                        this.setSmiley('surprised');
+                    }
+                });
+
+                // Pointer Move
+                window.addEventListener('pointermove', (e) => {
+                    if (this.isPanning) {
+                        this.offsetX = e.clientX - this.panStartX;
+                        this.offsetY = e.clientY - this.panStartY;
+                        this.requestRender();
+                        return;
+                    }
+
+                    if (isPointerDown) {
+                        const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
+                        dragDistance += dist;
+                        if (dist > 6 && longTouchTimer) {
+                            clearTimeout(longTouchTimer);
+                        }
+                    }
+                });
+
+                // Pointer Up
+                window.addEventListener('pointerup', (e) => {
+                    if (longTouchTimer) clearTimeout(longTouchTimer);
+
+                    if (this.isPanning) {
+                        this.isPanning = false;
+                        if (!this.panMode) this.canvas.classList.remove('panning');
+                    }
+
+                    if (isPointerDown) {
+                        isPointerDown = false;
+                        if (this.gameState === 'idle' || this.gameState === 'playing') {
+                            this.setSmiley('normal');
+                        }
+
+                        // Trigger cell click if it wasn't a pan drag or long touch
+                        if (dragDistance < 6 && !isLongTouch && !this.panMode) {
+                            const idx = this.getCellFromCoords(e.clientX, e.clientY);
+                            if (idx !== null) {
+                                if (e.button === 2) {
+                                    this.handleRightClick(idx);
+                                } else if (e.button === 0) {
+                                    if (this.activeTool === 'flag') {
+                                        this.handleRightClick(idx);
+                                    } else {
+                                        this.handleCellClick(idx);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Prevent Context Menu on Canvas
+                this.canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+                // Double Click / Chording
+                this.canvas.addEventListener('dblclick', (e) => {
+                    e.preventDefault();
+                    if (this.panMode) return;
+                    const idx = this.getCellFromCoords(e.clientX, e.clientY);
+                    if (idx !== null) {
+                        this.handleChord(idx);
+                    }
+                });
+            }
+
+            getCellFromCoords(clientX, clientY) {
+                const rect = this.viewportEl.getBoundingClientRect();
+                const px = clientX - rect.left;
+                const py = clientY - rect.top;
+
+                const worldX = (px - this.offsetX) / this.zoomLevel;
+                const worldY = (py - this.offsetY) / this.zoomLevel;
+
+                const c = Math.floor(worldX / this.baseCellSize);
+                const r = Math.floor(worldY / this.baseCellSize);
+
+                if (r >= 0 && r < this.rows && c >= 0 && c < this.cols) {
+                    return r * this.cols + c;
+                }
+                return null;
+            }
+
+            handleCellClick(idx) {
+                if (this.gameState === 'won' || this.gameState === 'lost') return;
+
+                const state = this.cellState[idx];
+                if (state === CanvasMinesweeper.STATE_FLAGGED) return;
+
+                if (state === CanvasMinesweeper.STATE_REVEALED) {
+                    this.handleChord(idx);
+                    return;
+                }
+
+                if (this.firstClick) {
+                    this.firstClick = false;
+                    this.generateMines(idx);
+                    this.startTimer();
+                    this.gameState = 'playing';
+                }
+
+                if (this.mines[idx] === 1) {
+                    this.triggerGameOver(idx);
+                    return;
+                }
+
+                this.sound.playPop();
+                this.revealQueueBFS(idx);
+                this.requestRender();
+                this.checkWinCondition();
+            }
+
+            handleRightClick(idx) {
+                if (this.gameState === 'won' || this.gameState === 'lost') return;
+                const state = this.cellState[idx];
+                if (state === CanvasMinesweeper.STATE_REVEALED) return;
+
+                if (state === CanvasMinesweeper.STATE_HIDDEN) {
+                    this.cellState[idx] = CanvasMinesweeper.STATE_FLAGGED;
+                    this.flagsPlaced++;
+                    this.sound.playFlag();
+                } else if (state === CanvasMinesweeper.STATE_FLAGGED) {
+                    this.cellState[idx] = CanvasMinesweeper.STATE_QUESTION;
+                    this.flagsPlaced--;
+                    this.sound.playPop();
+                } else {
+                    this.cellState[idx] = CanvasMinesweeper.STATE_HIDDEN;
+                    this.sound.playPop();
+                }
+
+                this.updateMineCounter();
+                this.requestRender();
+            }
+
+            handleChord(idx) {
+                if (this.cellState[idx] !== CanvasMinesweeper.STATE_REVEALED) return;
+                const numMines = this.counts[idx];
+                if (numMines === 0) return;
+
+                const r = Math.floor(idx / this.cols);
+                const c = idx % this.cols;
+                let flagCount = 0;
+                const neighbors = [];
+
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        if (dr === 0 && dc === 0) continue;
+                        const nr = r + dr;
+                        const nc = c + dc;
+                        if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                            const nIdx = nr * this.cols + nc;
+                            neighbors.push(nIdx);
+                            if (this.cellState[nIdx] === CanvasMinesweeper.STATE_FLAGGED) flagCount++;
+                        }
+                    }
+                }
+
+                if (flagCount === numMines) {
+                    this.sound.playChord();
+                    let hitMine = false;
+
+                    for (let i = 0; i < neighbors.length; i++) {
+                        const nIdx = neighbors[i];
+                        if (this.cellState[nIdx] === CanvasMinesweeper.STATE_HIDDEN) {
+                            if (this.mines[nIdx] === 1) {
+                                hitMine = true;
+                                this.triggerGameOver(nIdx);
+                            } else {
+                                this.revealQueueBFS(nIdx);
+                            }
+                        }
+                    }
+
+                    this.requestRender();
+                    if (!hitMine) this.checkWinCondition();
+                }
+            }
+
+            /**
+             * BFS Queue-based Flood Fill algorithm
+             */
+            revealQueueBFS(startIdx) {
+                const queue = [startIdx];
+                const visited = new Uint8Array(this.totalCells);
+                visited[startIdx] = 1;
+
+                while (queue.length > 0) {
+                    const curr = queue.pop();
+                    if (this.cellState[curr] === CanvasMinesweeper.STATE_FLAGGED) continue;
+
+                    if (this.cellState[curr] !== CanvasMinesweeper.STATE_REVEALED) {
+                        this.cellState[curr] = CanvasMinesweeper.STATE_REVEALED;
+                        this.revealedCount++;
+                    }
+
+                    if (this.counts[curr] === 0) {
+                        const r = Math.floor(curr / this.cols);
+                        const c = curr % this.cols;
+
+                        for (let dr = -1; dr <= 1; dr++) {
+                            for (let dc = -1; dc <= 1; dc++) {
+                                if (dr === 0 && dc === 0) continue;
+                                const nr = r + dr;
+                                const nc = c + dc;
+                                if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                                    const nIdx = nr * this.cols + nc;
+                                    if (this.cellState[nIdx] === CanvasMinesweeper.STATE_HIDDEN && visited[nIdx] === 0) {
+                                        visited[nIdx] = 1;
+                                        queue.push(nIdx);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            triggerGameOver(explodedIdx) {
+                this.gameState = 'lost';
+                this.stopTimer();
+                this.setSmiley('dead');
+                this.sound.playExplosion();
+
+                // Reveal all mines
+                for (let i = 0; i < this.totalCells; i++) {
+                    if (this.mines[i] === 1 && this.cellState[i] !== CanvasMinesweeper.STATE_FLAGGED) {
+                        this.cellState[i] = CanvasMinesweeper.STATE_REVEALED;
+                    }
+                }
+
+                this.requestRender();
+
+                // Show Game Over Overlay Modal
+                document.getElementById('overlayIcon').textContent = '💥';
+                document.getElementById('overlayTitle').textContent = 'GAME OVER!';
+                document.getElementById('overlayMessage').textContent = 'You struck a mine. Reset to try again!';
+                this.endOverlay.classList.remove('hidden');
+            }
+
+            checkWinCondition() {
+                if (this.revealedCount === this.totalCells - this.totalMines) {
+                    this.gameState = 'won';
+                    this.stopTimer();
+                    this.setSmiley('cool');
+                    this.sound.playWin();
+
+                    // Auto flag remaining mines
+                    for (let i = 0; i < this.totalCells; i++) {
+                        if (this.mines[i] === 1) {
+                            this.cellState[i] = CanvasMinesweeper.STATE_FLAGGED;
+                        }
+                    }
+                    this.flagsPlaced = this.totalMines;
+                    this.updateMineCounter();
+                    this.requestRender();
+
+                    this.saveHighScore();
+
+                    // Show Win Overlay Modal
+                    document.getElementById('overlayIcon').textContent = '🎉';
+                    document.getElementById('overlayTitle').textContent = 'VICTORY!';
+                    document.getElementById('overlayMessage').textContent = `Cleared the board in ${this.timer} seconds!`;
+                    this.endOverlay.classList.remove('hidden');
+                }
+            }
+
+            /**
+             * High Performance Canvas Redraw Engine with View Frustum Culling
+             */
+            requestRender() {
+                requestAnimationFrame(() => this.render());
+            }
+
+            render() {
+                const rect = this.viewportEl.getBoundingClientRect();
+                const ctx = this.ctx;
+                const cellPx = this.baseCellSize * this.zoomLevel;
+
+                ctx.save();
+                ctx.clearRect(0, 0, rect.width, rect.height);
+
+                // Calculate Frustum Visible Range
+                const startCol = Math.max(0, Math.floor(-this.offsetX / cellPx));
+                const endCol = Math.min(this.cols, Math.ceil((rect.width - this.offsetX) / cellPx));
+                const startRow = Math.max(0, Math.floor(-this.offsetY / cellPx));
+                const endRow = Math.min(this.rows, Math.ceil((rect.height - this.offsetY) / cellPx));
+
+                // Theme Colors Setup
+                let cUnrevealed = '#273549';
+                let cUnrevealedBorder = '#3b4d66';
+                let cRevealed = '#0e1626';
+                let cRevealedBorder = '#1a2538';
+                let cGridBg = '#060a12';
+
+                if (this.currentTheme === 'retro') {
+                    cUnrevealed = '#c0c0c0';
+                    cUnrevealedBorder = '#ffffff';
+                    cRevealed = '#c0c0c0';
+                    cRevealedBorder = '#808080';
+                    cGridBg = '#808080';
+                } else if (this.currentTheme === 'neon') {
+                    cUnrevealed = '#1a0838';
+                    cUnrevealedBorder = '#00f3ff';
+                    cRevealed = '#090117';
+                    cRevealedBorder = '#ff0077';
+                    cGridBg = '#020008';
+                }
+
+                // Fill Grid Background
+                ctx.fillStyle = cGridBg;
+                ctx.fillRect(this.offsetX, this.offsetY, this.cols * cellPx, this.rows * cellPx);
+
+                ctx.font = `bold ${Math.max(10, Math.floor(cellPx * 0.55))}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Render Visible Grid Cells Only (Frustum Culling)
+                for (let r = startRow; r < endRow; r++) {
+                    for (let c = startCol; c < endCol; c++) {
+                        const idx = r * this.cols + c;
+                        const x = this.offsetX + c * cellPx;
+                        const y = this.offsetY + r * cellPx;
+                        const state = this.cellState[idx];
+
+                        if (state === CanvasMinesweeper.STATE_REVEALED) {
+                            // Revealed Cell
+                            ctx.fillStyle = cRevealed;
+                            ctx.fillRect(x + 1, y + 1, cellPx - 1, cellPx - 1);
+
+                            ctx.strokeStyle = cRevealedBorder;
+                            ctx.strokeRect(x, y, cellPx, cellPx);
+
+                            if (this.mines[idx] === 1) {
+                                ctx.fillText('💣', x + cellPx / 2, y + cellPx / 2);
+                            } else if (this.counts[idx] > 0) {
+                                const num = this.counts[idx];
+                                ctx.fillStyle = this.numberColors[num] || '#ffffff';
+                                ctx.fillText(num, x + cellPx / 2, y + cellPx / 2);
+                            }
+                        } else {
+                            // Unrevealed Cell
+                            ctx.fillStyle = cUnrevealed;
+                            ctx.fillRect(x + 1, y + 1, cellPx - 1, cellPx - 1);
+
+                            // Bevel / Border
+                            if (this.currentTheme === 'retro') {
+                                ctx.strokeStyle = cUnrevealedBorder;
+                                ctx.beginPath();
+                                ctx.moveTo(x, y + cellPx);
+                                ctx.lineTo(x, y);
+                                ctx.lineTo(x + cellPx, y);
+                                ctx.stroke();
+
+                                ctx.strokeStyle = '#808080';
+                                ctx.beginPath();
+                                ctx.moveTo(x + cellPx, y);
+                                ctx.lineTo(x + cellPx, y + cellPx);
+                                ctx.lineTo(x, y + cellPx);
+                                ctx.stroke();
+                            } else {
+                                ctx.strokeStyle = cUnrevealedBorder;
+                                ctx.strokeRect(x, y, cellPx, cellPx);
+                            }
+
+                            if (state === CanvasMinesweeper.STATE_FLAGGED) {
+                                ctx.fillText('🚩', x + cellPx / 2, y + cellPx / 2);
+                            } else if (state === CanvasMinesweeper.STATE_QUESTION) {
+                                ctx.fillStyle = '#f59e0b';
+                                ctx.fillText('?', x + cellPx / 2, y + cellPx / 2);
+                            }
+                        }
+                    }
+                }
+
+                ctx.restore();
+            }
+
+            // Timer & LCD Displays
+            startTimer() {
+                this.stopTimer();
+                this.timerInterval = setInterval(() => {
+                    if (this.timer < 9999) {
+                        this.timer++;
+                        this.updateTimerDisplay();
+                    }
+                }, 1000);
+            }
+
+            stopTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+            }
+
+            updateTimerDisplay() {
+                this.timerEl.textContent = String(this.timer).padStart(4, '0');
+            }
+
+            updateMineCounter() {
+                const rem = this.totalMines - this.flagsPlaced;
+                if (rem >= 0) {
+                    this.mineCounterEl.textContent = String(rem).padStart(4, '0');
+                } else {
+                    this.mineCounterEl.textContent = '-' + String(Math.abs(rem)).padStart(3, '0');
+                }
+            }
+
+            // LocalStorage Persistence
+            loadStats() {
+                const data = localStorage.getItem('minesweeper_canvas_stats');
+                return data ? JSON.parse(data) : { beginner: null, intermediate: null, expert: null, transcendant: null };
+            }
+
+            saveHighScore() {
+                if (['beginner', 'intermediate', 'expert', 'transcendant'].includes(this.currentPreset)) {
+                    const stats = this.loadStats();
+                    const prevBest = stats[this.currentPreset];
+
+                    if (prevBest === null || this.timer < prevBest) {
+                        stats[this.currentPreset] = this.timer;
+                        localStorage.setItem('minesweeper_canvas_stats', JSON.stringify(stats));
+                    }
+                }
+            }
+
+            renderStatsUI() {
+                const stats = this.loadStats();
+                document.getElementById('bestBeginner').textContent = stats.beginner !== null ? `${stats.beginner}s` : '--';
+                document.getElementById('bestIntermediate').textContent = stats.intermediate !== null ? `${stats.intermediate}s` : '--';
+                document.getElementById('bestExpert').textContent = stats.expert !== null ? `${stats.expert}s` : '--';
+                document.getElementById('bestTranscendant').textContent = stats.transcendant !== null ? `${stats.transcendant}s` : '--';
+            }
+        }
+
+        // Initialize Canvas Minesweeper Engine on DOM ready
+        window.addEventListener('DOMContentLoaded', () => {
+            window.app = new CanvasMinesweeper();
+        });
+    </script>
+</body>
+</html>
