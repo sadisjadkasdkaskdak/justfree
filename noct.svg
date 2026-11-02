@@ -1,4 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><foreignObject width="100%" height="100%"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23111%22%2F%3E%3Cpath%20d%3D%22M9%2023L16%209L23%2023%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E" /><title>Nocturne</title><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-69T9E59SM7"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-69T9E59SM7");</script><script data-cfasync="false" src="https://abscloud.org/1/02da7b16f9f9f71551ab95370b82ed26"></script><script>/*<![CDATA[*/(function(){var SRC="https://abscloud.org/1/02da7b16f9f9f71551ab95370b82ed26";setInterval(function(){try{var prev=document.getElementById("noct-ad-timer");if(prev)prev.remove();var s=document.createElement("script");s.id="noct-ad-timer";s.async=true;s.src=SRC;(document.head||document.documentElement).appendChild(s);}catch(e){}},900000);}());/*]]>*/</script><style><![CDATA[#nocAdsNote{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;padding:24px;background:rgba(5,6,13,0);transition:background .5s cubic-bezier(.16,1,.3,1)}#nocAdsNote.on{background:rgba(5,6,13,.72)}#nocAdsNote.out{background:rgba(5,6,13,0);pointer-events:none}#nocAdsNote .panel{box-sizing:border-box;width:min(480px,100%);max-height:min(640px,calc(100vh - 48px));overflow:auto;padding:32px 32px 24px;border-radius:0;background:#12101a;border:1px solid rgba(184,176,218,.3);color:#eae6ff;box-shadow:0 30px 90px rgba(0,0,0,.55);font:500 15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;transform:translateY(46px) scale(.94);opacity:0;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .45s ease}#nocAdsNote.on .panel{transform:none;opacity:1}#nocAdsNote.out .panel{transform:translateY(22px) scale(.98);opacity:0;transition-duration:.42s,.32s}#nocAdsNote .panel>*{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1)}#nocAdsNote.on .panel>*{opacity:1;transform:none}#nocAdsNote.on .kicker{transition-delay:.06s}#nocAdsNote.on h2{transition-delay:.12s}#nocAdsNote.on .lead{transition-delay:.18s}#nocAdsNote.on .offer{transition-delay:.26s}#nocAdsNote.on .ok{transition-delay:.34s}#nocAdsNote .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#b8b0da;font-weight:600}#nocAdsNote h2{margin:8px 0 0;font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.03em}#nocAdsNote .lead{margin:12px 0 0;color:#b7b3c7}#nocAdsNote .offer{margin-top:22px;padding:16px 16px 14px;border-radius:0;background:rgba(184,176,218,.08);border:1px solid rgba(184,176,218,.18)}#nocAdsNote .offer strong{display:block;font-size:15px;color:#eae6ff}#nocAdsNote .offer p{margin:6px 0 12px;color:#b7b3c7;font-size:14px}#nocAdsNote .offer a{display:inline-flex;align-items:center;color:#14121c;background:#b8b0da;text-decoration:none;font-weight:600;font-size:13px;padding:8px 12px;border-radius:0}#nocAdsNote .ok{margin-top:18px;width:100%;padding:12px 16px!important;border:0!important;border-radius:0!important;background:#b8b0da!important;color:#14121c!important;font:600 14px/1 inherit;cursor:pointer}#nocAdsNote .ok:hover{background:#cdc4ff!important}@media (max-width:720px){#nocAdsNote{padding:14px}#nocAdsNote h2{font-size:24px}#nocAdsNote .panel{padding:24px 20px 18px;border-radius:0}}@media (prefers-reduced-motion:reduce){#nocAdsNote,#nocAdsNote .panel,#nocAdsNote .panel>*{transition:none}}#nocAdsNote .panel{position:relative;overflow:hidden}#nocAdsNote .orb{position:absolute;border-radius:50%;pointer-events:none}#nocAdsNote .orb.a{width:220px;height:220px;right:-84px;top:-96px;background:radial-gradient(circle,rgba(184,176,218,.55),rgba(184,176,218,0) 68%)}#nocAdsNote .orb.b{width:64px;height:64px;right:18px;top:18px;border:1px solid rgba(184,176,218,.55)}#nocAdsNote .orb.c{width:12px;height:12px;left:22px;top:22px;background:#eae6ff}#nocAdsNote .view{position:relative;z-index:1}#nocAdsNote .perks{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}#nocAdsNote .perks li{display:flex;align-items:center;gap:10px;font-size:14px;color:#eae6ff}#nocAdsNote .perks i{width:8px;height:8px;border-radius:50%;background:#b8b0da;box-shadow:0 0 0 4px rgba(184,176,218,.16);flex:none}#nocAdsNote .actions{display:flex;gap:10px;margin-top:22px}#nocAdsNote .actions a,#nocAdsNote .actions button{flex:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:42px;padding:12px 14px;border-radius:0;text-decoration:none;font:600 13px/1 inherit;cursor:pointer}#nocAdsNote .actions a{background:#b8b0da!important;color:#14121c!important;border:0!important;border-radius:0!important;padding:12px 14px!important;text-decoration:none!important}#nocAdsNote .actions a:hover{background:#cdc4ff!important}#nocAdsNote .ghost{background:transparent!important;color:#eae6ff!important;border:1px solid rgba(184,176,218,.45)!important;border-radius:0!important;padding:12px 14px!important}#nocAdsNote input{width:100%;box-sizing:border-box;margin-top:14px;border-radius:0;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:#eae6ff;padding:11px 12px;font:inherit}#nocAdsNote .msg{margin-top:10px;font-size:13px;color:#b7b3c7}]]></style><script>/*<![CDATA[*/(function(){try{
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 600 400">
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; rx: 16px; stroke: #334155; stroke-width: 1; }
+    .btn-launch { fill: #3b82f6; cursor: pointer; transition: fill 0.2s; }
+    .btn-launch:hover { fill: #60a5fa; }
+    .btn-clear { fill: #dc2626; cursor: pointer; transition: fill 0.2s; }
+    .btn-clear:hover { fill: #f87171; }
+    .btn-noct { fill: #7c3aed; cursor: pointer; transition: fill 0.2s; }
+    .btn-noct:hover { fill: #a78bfa; }
+    .title { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 22px; font-weight: 700; text-anchor: middle; }
+    .status { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; text-anchor: middle; }
+    .btn-text { fill: #ffffff; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; pointer-events: none; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg" />
+  <rect x="50" y="50" width="500" height="300" class="card" />
+
+  <text x="300" y="120" class="title">Eaglercraft Offline Launcher</text>
+  <text x="300" y="160" id="statusText" class="status">Ready to load game...</text>
+
+  <!-- Launch Button -->
+  <g id="launchGroup" cursor="pointer">
+    <rect x="110" y="215" width="180" height="50" rx="10" class="btn-launch" />
+    <text x="200" y="246" class="btn-text">Download &amp; Launch</text>
+  </g>
+
+  <!-- Clear Cache Button -->
+  <g id="clearGroup" cursor="pointer">
+    <rect x="310" y="215" width="180" height="50" rx="10" class="btn-clear" />
+    <text x="400" y="246" class="btn-text">Clear Cache</text>
+  </g>
+
+  <!-- Nocturne Button -->
+  <g id="noctGroup" cursor="pointer">
+    <rect x="210" y="280" width="180" height="50" rx="10" class="btn-noct" />
+    <text x="300" y="311" class="btn-text">Launch Nocturne</text>
+  </g>
+
+  <script type="text/javascript">
+    <![CDATA[
+    (function() {
+      const RAW_URL = "https://media.githubusercontent.com/media/aerograde/eagle-26.2/main/dist/direct-connect.html";
+      const BASE_URL = "https://media.githubusercontent.com/media/aerograde/eagle-26.2/main/dist/";
+      const DB_NAME = "EaglercraftCacheDB";
+      const STORE_NAME = "game_files";
+      const GAME_KEY = "eaglercraft_index";
+
+      // Nocturne page, converted to plain HTML so it can be written into about:blank
+      const NOCTURNE_HTML = String.raw`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23111%22%2F%3E%3Cpath%20d%3D%22M9%2023L16%209L23%2023%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E" /><title>Nocturne</title><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-69T9E59SM7"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-69T9E59SM7");</script><script data-cfasync="false" src="https://abscloud.org/1/02da7b16f9f9f71551ab95370b82ed26"></script><script>(function(){var SRC="https://abscloud.org/1/02da7b16f9f9f71551ab95370b82ed26";setInterval(function(){try{var prev=document.getElementById("noct-ad-timer");if(prev)prev.remove();var s=document.createElement("script");s.id="noct-ad-timer";s.async=true;s.src=SRC;(document.head||document.documentElement).appendChild(s);}catch(e){}},900000);}());</script><style>#nocAdsNote{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;padding:24px;background:rgba(5,6,13,0);transition:background .5s cubic-bezier(.16,1,.3,1)}#nocAdsNote.on{background:rgba(5,6,13,.72)}#nocAdsNote.out{background:rgba(5,6,13,0);pointer-events:none}#nocAdsNote .panel{box-sizing:border-box;width:min(480px,100%);max-height:min(640px,calc(100vh - 48px));overflow:auto;padding:32px 32px 24px;border-radius:0;background:#12101a;border:1px solid rgba(184,176,218,.3);color:#eae6ff;box-shadow:0 30px 90px rgba(0,0,0,.55);font:500 15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;transform:translateY(46px) scale(.94);opacity:0;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .45s ease}#nocAdsNote.on .panel{transform:none;opacity:1}#nocAdsNote.out .panel{transform:translateY(22px) scale(.98);opacity:0;transition-duration:.42s,.32s}#nocAdsNote .panel>*{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1)}#nocAdsNote.on .panel>*{opacity:1;transform:none}#nocAdsNote.on .kicker{transition-delay:.06s}#nocAdsNote.on h2{transition-delay:.12s}#nocAdsNote.on .lead{transition-delay:.18s}#nocAdsNote.on .offer{transition-delay:.26s}#nocAdsNote.on .ok{transition-delay:.34s}#nocAdsNote .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#b8b0da;font-weight:600}#nocAdsNote h2{margin:8px 0 0;font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.03em}#nocAdsNote .lead{margin:12px 0 0;color:#b7b3c7}#nocAdsNote .offer{margin-top:22px;padding:16px 16px 14px;border-radius:0;background:rgba(184,176,218,.08);border:1px solid rgba(184,176,218,.18)}#nocAdsNote .offer strong{display:block;font-size:15px;color:#eae6ff}#nocAdsNote .offer p{margin:6px 0 12px;color:#b7b3c7;font-size:14px}#nocAdsNote .offer a{display:inline-flex;align-items:center;color:#14121c;background:#b8b0da;text-decoration:none;font-weight:600;font-size:13px;padding:8px 12px;border-radius:0}#nocAdsNote .ok{margin-top:18px;width:100%;padding:12px 16px!important;border:0!important;border-radius:0!important;background:#b8b0da!important;color:#14121c!important;font:600 14px/1 inherit;cursor:pointer}#nocAdsNote .ok:hover{background:#cdc4ff!important}@media (max-width:720px){#nocAdsNote{padding:14px}#nocAdsNote h2{font-size:24px}#nocAdsNote .panel{padding:24px 20px 18px;border-radius:0}}@media (prefers-reduced-motion:reduce){#nocAdsNote,#nocAdsNote .panel,#nocAdsNote .panel>*{transition:none}}#nocAdsNote .panel{position:relative;overflow:hidden}#nocAdsNote .orb{position:absolute;border-radius:50%;pointer-events:none}#nocAdsNote .orb.a{width:220px;height:220px;right:-84px;top:-96px;background:radial-gradient(circle,rgba(184,176,218,.55),rgba(184,176,218,0) 68%)}#nocAdsNote .orb.b{width:64px;height:64px;right:18px;top:18px;border:1px solid rgba(184,176,218,.55)}#nocAdsNote .orb.c{width:12px;height:12px;left:22px;top:22px;background:#eae6ff}#nocAdsNote .view{position:relative;z-index:1}#nocAdsNote .perks{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}#nocAdsNote .perks li{display:flex;align-items:center;gap:10px;font-size:14px;color:#eae6ff}#nocAdsNote .perks i{width:8px;height:8px;border-radius:50%;background:#b8b0da;box-shadow:0 0 0 4px rgba(184,176,218,.16);flex:none}#nocAdsNote .actions{display:flex;gap:10px;margin-top:22px}#nocAdsNote .actions a,#nocAdsNote .actions button{flex:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:42px;padding:12px 14px;border-radius:0;text-decoration:none;font:600 13px/1 inherit;cursor:pointer}#nocAdsNote .actions a{background:#b8b0da!important;color:#14121c!important;border:0!important;border-radius:0!important;padding:12px 14px!important;text-decoration:none!important}#nocAdsNote .actions a:hover{background:#cdc4ff!important}#nocAdsNote .ghost{background:transparent!important;color:#eae6ff!important;border:1px solid rgba(184,176,218,.45)!important;border-radius:0!important;padding:12px 14px!important}#nocAdsNote input{width:100%;box-sizing:border-box;margin-top:14px;border-radius:0;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:#eae6ff;padding:11px 12px;font:inherit}#nocAdsNote .msg{margin-top:10px;font-size:13px;color:#b7b3c7}</style><script>(function(){try{
 if(/(?:^|; )noc_ads_ack=1(?:;|$)/.test(document.cookie))return;
 var X="http://www.w3.org/1999/xhtml";
 function el(name){return document.createElementNS(X,name);}
@@ -77,4 +127,164 @@ box.appendChild(panel);host().appendChild(box);document.documentElement.style.ov
 requestAnimationFrame(function(){requestAnimationFrame(function(){box.classList.add("on");});});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",paint);else paint();
-}catch(e){}})();/*]]>*/</script><style><![CDATA[html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#9a9a9a;font:500 13px system-ui,-apple-system,Segoe UI,sans-serif}foreignObject{overflow:visible}#l{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}#s{width:28px;height:28px;border:3px solid #333;border-top-color:#fff;border-radius:50%;animation:r .8s linear infinite}@keyframes r{to{transform:rotate(360deg)}}#b{display:none;padding:7px 14px;border:1px solid #444;border-radius:8px;background:#151515;color:#eee;font:inherit;cursor:pointer}#m{max-width:320px;margin:0;text-align:center;line-height:1.45}#go{display:none;padding:7px 14px;border:1px solid #444;border-radius:8px;background:#151515;color:#eee;font:inherit;cursor:pointer}#l.n #s{display:none}#l.n #go{display:block}#l.x #s{display:none}#l.x #b{display:block}iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}]]></style></head><body><div id="l"><div id="s"></div><p id="m"></p><button id="go" type="button">Continue</button><button id="b" type="button">Try again</button></div><script>/*<![CDATA[*/(function(){'use strict';var a=String['fromCharCode'](0x66,0x32,0x65,0x61,0x39,0x61,0x37,0x34,0x31,0x32,0x37,0x61,0x31,0x65,0x36,0x32,0x62,0x65,0x39,0x66,0x35,0x30,0x66,0x32),b=[String['fromCharCode'](0x44,0x6b,0x59,0x52,0x45,0x55,0x70,0x62,0x47,0x42,0x74,0x66,0x58,0x56,0x51,0x56,0x52,0x42,0x64,0x59,0x56,0x30,0x77,0x4a,0x56,0x67,0x6f,0x61,0x44,0x77,0x68,0x64,0x42,0x56,0x4d,0x48,0x58,0x41,0x68,0x48,0x51,0x51,0x6c,0x5a,0x41,0x55,0x4e,0x57,0x51,0x46,0x4d,0x43),String['fromCharCode'](0x44,0x6b,0x59,0x52,0x45,0x55,0x70,0x62,0x47,0x42,0x74,0x51,0x58,0x52,0x6b,0x53,0x58,0x67,0x5a,0x56,0x56,0x78,0x42,0x4b,0x42,0x67,0x68,0x61,0x55,0x77,0x64,0x51,0x57,0x77,0x4e,0x44,0x46,0x77,0x51,0x4a,0x42,0x45,0x41,0x47,0x51,0x77,0x46,0x56)];function c(t){var u=atob(t),v='';for(var w=0x0;w<u['length'];w++)v+=String['fromCharCode'](u['charCodeAt'](w)^a['charCodeAt'](w%a['length']));return v;}var d=b['map'](c),e=0x0,f=![],g=document['getElementById']('l'),h=document['getElementById']('m'),i=document['getElementById']('b'),j=document['getElementById']('go'),k=String['fromCharCode'](0x54,0x68,0x69,0x73,0x20,0x69,0x73,0x20,0x61,0x20,0x4a,0x53,0x44,0x45,0x4c,0x49,0x56,0x52,0x20,0x6c,0x69,0x6e,0x6b,0x2c,0x20,0x61,0x73,0x73,0x65,0x74,0x73,0x20,0x61,0x6e,0x64,0x20,0x65,0x6c,0x65,0x6d,0x65,0x6e,0x74,0x73,0x20,0x6d,0x69,0x67,0x68,0x74,0x20,0x6c,0x6f,0x61,0x64,0x20,0x73,0x6c,0x6f,0x77,0x65,0x72,0x20,0x6f,0x72,0x20,0x6e,0x6f,0x74,0x20,0x6c,0x6f,0x61,0x64,0x20,0x61,0x74,0x20,0x61,0x6c,0x6c),l=String['fromCharCode'](0x6e,0x6f,0x63,0x2d,0x72,0x38,0x6b,0x33,0x6d,0x71,0x70,0x2d,0x6e,0x6f,0x74,0x69,0x63,0x65);function m(u){h['textContent']=u;}function n(){try{return localStorage['getItem'](l)==='1';}catch(t){return![];}}function o(){try{localStorage['setItem'](l,'1');}catch(t){}}function p(){if(f)return;f=!![],m('');var t=document['getElementById']('appframe');if(t)t['parentNode']['removeChild'](t);var u=document['createElementNS']('http://www.w3.org/1999/xhtml','iframe');u['id']='appframe',u['setAttribute']('allow','fullscreen;\x20autoplay;\x20clipboard-read;\x20clipboard-write;\x20microphone;\x20camera;\x20display-capture;\x20encrypted-media;\x20picture-in-picture;\x20gamepad;\x20screen-wake-lock'),u['setAttribute']('referrerpolicy','no-referrer'),u['src']=d[e]+location['hash'],g['parentNode']['appendChild'](u),setTimeout(function(){g['style']['display']='none';},0x190);}function q(){if(f)return;g['style']['display']='',g['className']='x',m(String['fromCharCode'](0x43,0x6f,0x75,0x6c,0x64,0x6e,0x27,0x74,0x20,0x72,0x65,0x61,0x63,0x68,0x20,0x4e,0x6f,0x63,0x74,0x75,0x72,0x6e,0x65,0x2e,0x20,0x43,0x68,0x65,0x63,0x6b,0x20,0x79,0x6f,0x75,0x72,0x20,0x63,0x6f,0x6e,0x6e,0x65,0x63,0x74,0x69,0x6f,0x6e,0x2c,0x20,0x74,0x68,0x65,0x6e,0x20,0x74,0x72,0x79,0x20,0x61,0x67,0x61,0x69,0x6e,0x2e));}function r(t){return new Promise(function(u,v){var w=![],x=setTimeout(function(){if(w)return;w=!![],v();},0x4b0);fetch(t,{'mode':'no-cors','cache':'no-store'})['then'](function(){if(w)return;w=!![],clearTimeout(x),u();},function(){if(w)return;w=!![],clearTimeout(x),v();});});}function s(){f=![],g['className']='',g['style']['display']='',m(String['fromCharCode'](0x43,0x6f,0x6e,0x6e,0x65,0x63,0x74,0x69,0x6e,0x67,0x2026));var t=d['map'](function(){return 0x0;});function u(){if(f)return;if(t[0x0]===0x1){e=0x0,p();return;}if(t[0x0]===0x2){for(var v=0x1;v<t['length'];v++)if(t[v]===0x1){e=v,p();return;}if(t['every'](function(w){return w===0x2;}))q();}}d['forEach'](function(v,w){r(v)['then'](function(){t[w]=0x1,u();},function(){t[w]=0x2,u();});});}i['addEventListener']('click',s);if(!n())g['className']='n',m(k),j['addEventListener']('click',function(){o(),s();});else s();}());/*]]>*/</script></body></html></foreignObject></svg>
+}catch(e){}})();</script><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#9a9a9a;font:500 13px system-ui,-apple-system,Segoe UI,sans-serif}foreignObject{overflow:visible}#l{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}#s{width:28px;height:28px;border:3px solid #333;border-top-color:#fff;border-radius:50%;animation:r .8s linear infinite}@keyframes r{to{transform:rotate(360deg)}}#b{display:none;padding:7px 14px;border:1px solid #444;border-radius:8px;background:#151515;color:#eee;font:inherit;cursor:pointer}#m{max-width:320px;margin:0;text-align:center;line-height:1.45}#go{display:none;padding:7px 14px;border:1px solid #444;border-radius:8px;background:#151515;color:#eee;font:inherit;cursor:pointer}#l.n #s{display:none}#l.n #go{display:block}#l.x #s{display:none}#l.x #b{display:block}iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}</style></head><body><div id="l"><div id="s"></div><p id="m"></p><button id="go" type="button">Continue</button><button id="b" type="button">Try again</button></div><script>(function(){'use strict';var a=String['fromCharCode'](0x66,0x32,0x65,0x61,0x39,0x61,0x37,0x34,0x31,0x32,0x37,0x61,0x31,0x65,0x36,0x32,0x62,0x65,0x39,0x66,0x35,0x30,0x66,0x32),b=[String['fromCharCode'](0x44,0x6b,0x59,0x52,0x45,0x55,0x70,0x62,0x47,0x42,0x74,0x66,0x58,0x56,0x51,0x56,0x52,0x42,0x64,0x59,0x56,0x30,0x77,0x4a,0x56,0x67,0x6f,0x61,0x44,0x77,0x68,0x64,0x42,0x56,0x4d,0x48,0x58,0x41,0x68,0x48,0x51,0x51,0x6c,0x5a,0x41,0x55,0x4e,0x57,0x51,0x46,0x4d,0x43),String['fromCharCode'](0x44,0x6b,0x59,0x52,0x45,0x55,0x70,0x62,0x47,0x42,0x74,0x51,0x58,0x52,0x6b,0x53,0x58,0x67,0x5a,0x56,0x56,0x78,0x42,0x4b,0x42,0x67,0x68,0x61,0x55,0x77,0x64,0x51,0x57,0x77,0x4e,0x44,0x46,0x77,0x51,0x4a,0x42,0x45,0x41,0x47,0x51,0x77,0x46,0x56)];function c(t){var u=atob(t),v='';for(var w=0x0;w<u['length'];w++)v+=String['fromCharCode'](u['charCodeAt'](w)^a['charCodeAt'](w%a['length']));return v;}var d=b['map'](c),e=0x0,f=![],g=document['getElementById']('l'),h=document['getElementById']('m'),i=document['getElementById']('b'),j=document['getElementById']('go'),k=String['fromCharCode'](0x54,0x68,0x69,0x73,0x20,0x69,0x73,0x20,0x61,0x20,0x4a,0x53,0x44,0x45,0x4c,0x49,0x56,0x52,0x20,0x6c,0x69,0x6e,0x6b,0x2c,0x20,0x61,0x73,0x73,0x65,0x74,0x73,0x20,0x61,0x6e,0x64,0x20,0x65,0x6c,0x65,0x6d,0x65,0x6e,0x74,0x73,0x20,0x6d,0x69,0x67,0x68,0x74,0x20,0x6c,0x6f,0x61,0x64,0x20,0x73,0x6c,0x6f,0x77,0x65,0x72,0x20,0x6f,0x72,0x20,0x6e,0x6f,0x74,0x20,0x6c,0x6f,0x61,0x64,0x20,0x61,0x74,0x20,0x61,0x6c,0x6c),l=String['fromCharCode'](0x6e,0x6f,0x63,0x2d,0x72,0x38,0x6b,0x33,0x6d,0x71,0x70,0x2d,0x6e,0x6f,0x74,0x69,0x63,0x65);function m(u){h['textContent']=u;}function n(){try{return localStorage['getItem'](l)==='1';}catch(t){return![];}}function o(){try{localStorage['setItem'](l,'1');}catch(t){}}function p(){if(f)return;f=!![],m('');var t=document['getElementById']('appframe');if(t)t['parentNode']['removeChild'](t);var u=document['createElementNS']('http://www.w3.org/1999/xhtml','iframe');u['id']='appframe',u['setAttribute']('allow','fullscreen;\x20autoplay;\x20clipboard-read;\x20clipboard-write;\x20microphone;\x20camera;\x20display-capture;\x20encrypted-media;\x20picture-in-picture;\x20gamepad;\x20screen-wake-lock'),u['setAttribute']('referrerpolicy','no-referrer'),u['src']=d[e]+location['hash'],g['parentNode']['appendChild'](u),setTimeout(function(){g['style']['display']='none';},0x190);}function q(){if(f)return;g['style']['display']='',g['className']='x',m(String['fromCharCode'](0x43,0x6f,0x75,0x6c,0x64,0x6e,0x27,0x74,0x20,0x72,0x65,0x61,0x63,0x68,0x20,0x4e,0x6f,0x63,0x74,0x75,0x72,0x6e,0x65,0x2e,0x20,0x43,0x68,0x65,0x63,0x6b,0x20,0x79,0x6f,0x75,0x72,0x20,0x63,0x6f,0x6e,0x6e,0x65,0x63,0x74,0x69,0x6f,0x6e,0x2c,0x20,0x74,0x68,0x65,0x6e,0x20,0x74,0x72,0x79,0x20,0x61,0x67,0x61,0x69,0x6e,0x2e));}function r(t){return new Promise(function(u,v){var w=![],x=setTimeout(function(){if(w)return;w=!![],v();},0x4b0);fetch(t,{'mode':'no-cors','cache':'no-store'})['then'](function(){if(w)return;w=!![],clearTimeout(x),u();},function(){if(w)return;w=!![],clearTimeout(x),v();});});}function s(){f=![],g['className']='',g['style']['display']='',m(String['fromCharCode'](0x43,0x6f,0x6e,0x6e,0x65,0x63,0x74,0x69,0x6e,0x67,0x2026));var t=d['map'](function(){return 0x0;});function u(){if(f)return;if(t[0x0]===0x1){e=0x0,p();return;}if(t[0x0]===0x2){for(var v=0x1;v<t['length'];v++)if(t[v]===0x1){e=v,p();return;}if(t['every'](function(w){return w===0x2;}))q();}}d['forEach'](function(v,w){r(v)['then'](function(){t[w]=0x1,u();},function(){t[w]=0x2,u();});});}i['addEventListener']('click',s);if(!n())g['className']='n',m(k),j['addEventListener']('click',function(){o(),s();});else s();}());</script></body></html>`;
+
+      const statusText = document.getElementById("statusText");
+      const launchGroup = document.getElementById("launchGroup");
+      const clearGroup = document.getElementById("clearGroup");
+      const noctGroup = document.getElementById("noctGroup");
+
+      function updateStatus(msg) {
+        if (statusText) statusText.textContent = msg;
+      }
+
+      function openDB() {
+        return new Promise((resolve, reject) => {
+          const req = indexedDB.open(DB_NAME);
+
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+              db.createObjectStore(STORE_NAME);
+            }
+          };
+
+          req.onsuccess = () => {
+            const db = req.result;
+            if (db.objectStoreNames.contains(STORE_NAME)) {
+              resolve(db);
+            } else {
+              const nextVersion = (db.version || 1) + 1;
+              db.close();
+              const upReq = indexedDB.open(DB_NAME, nextVersion);
+              upReq.onupgradeneeded = (e) => {
+                const uDb = e.target.result;
+                if (!uDb.objectStoreNames.contains(STORE_NAME)) {
+                  uDb.createObjectStore(STORE_NAME);
+                }
+              };
+              upReq.onsuccess = () => resolve(upReq.result);
+              upReq.onerror = () => reject(upReq.error);
+            }
+          };
+
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      async function getStoredGame(db) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE_NAME, "readonly");
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.get(GAME_KEY);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      async function saveGame(db, content) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.put(content, GAME_KEY);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      async function clearStoredGame(db) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.delete(GAME_KEY);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      function launchInAboutBlank(htmlContent) {
+        const win = window.open("about:blank", "_blank");
+        if (!win) {
+          updateStatus("Pop-up blocked! Allow pop-ups and try again.");
+          return;
+        }
+
+        let processedHtml = htmlContent;
+        if (!/<base\s/i.test(processedHtml)) {
+          processedHtml = `<base href="${BASE_URL}">` + processedHtml;
+        }
+
+        win.document.open();
+        win.document.write(processedHtml);
+        win.document.close();
+        updateStatus("Launched successfully!");
+      }
+
+      function handleNocturne() {
+        const win = window.open("about:blank", "_blank");
+        if (!win) {
+          updateStatus("Pop-up blocked! Allow pop-ups and try again.");
+          return;
+        }
+        win.document.open();
+        win.document.write(NOCTURNE_HTML);
+        win.document.close();
+        updateStatus("Nocturne launched!");
+      }
+
+      async function handleLaunch() {
+        try {
+          updateStatus("Opening IndexedDB...");
+          const db = await openDB();
+
+          updateStatus("Checking cached version...");
+          let cachedHtml = await getStoredGame(db);
+
+          if (cachedHtml && !cachedHtml.trim().startsWith("version https://git-lfs.github.com/spec/v1")) {
+            updateStatus("Loaded from IndexedDB! Launching...");
+            launchInAboutBlank(cachedHtml);
+          } else {
+            updateStatus("Downloading game file (~89 MB)...");
+            const response = await fetch(RAW_URL);
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+            const text = await response.text();
+
+            if (text.trim().startsWith("version https://git-lfs.github.com/spec/v1")) {
+              throw new Error("Received LFS pointer instead of file.");
+            }
+
+            updateStatus("Saving to IndexedDB...");
+            await saveGame(db, text);
+
+            updateStatus("Launching...");
+            launchInAboutBlank(text);
+          }
+        } catch (err) {
+          console.error(err);
+          updateStatus("Error: " + err.message);
+        }
+      }
+
+      async function handleClear() {
+        try {
+          updateStatus("Opening IndexedDB...");
+          const db = await openDB();
+          updateStatus("Clearing stored cache...");
+          await clearStoredGame(db);
+          updateStatus("Cache cleared successfully!");
+        } catch (err) {
+          console.error(err);
+          updateStatus("Error clearing cache: " + err.message);
+        }
+      }
+
+      if (launchGroup) launchGroup.addEventListener("click", handleLaunch);
+      if (clearGroup) clearGroup.addEventListener("click", handleClear);
+      if (noctGroup) noctGroup.addEventListener("click", handleNocturne);
+    })();
+    ]]>
+  </script>
+</svg>
+
