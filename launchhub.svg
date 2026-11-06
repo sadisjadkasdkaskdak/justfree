@@ -166,7 +166,7 @@ h1{margin:8px 0 0;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:
         <div class="card">
           <h2>Nocturne</h2>
           <div class="pills"><span class="pill">Web app</span></div>
-          <p>The Nocturne web app. It starts with a short ad notice that you can dismiss with OK.</p>
+          <p>The Nocturne web app.A browser emulator currently blocked wil be fixing at a later time</p>
           <div class="spacer"></div>
           <div class="row"><button type="button" class="btn" data-action="noct">Launch Nocturne</button></div>
         </div>
