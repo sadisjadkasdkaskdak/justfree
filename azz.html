@@ -5,23 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link rel="icon" type="image/png" href="./pi7rz/mark-834cc7f9f1eda4fb.png" />
+  
+  <!-- Tailwind CSS for sleek loading UI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- PushState / ReplaceState shim -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    #root {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <!-- PushState / ReplaceState Shim -->
   <script>
     (function(){
-      var w=window, s={ps:History.prototype.pushState, rs:History.prototype.replaceState};
+      var w=window,s={ps:History.prototype.pushState,rs:History.prototype.replaceState};
       w.__nh=s;
-      var h=history, f=function(){
+      var h=history,f=function(){
         try{
-          Object.defineProperty(h, "pushState", {value:s.ps.bind(h), configurable:!0, writable:!0});
-          Object.defineProperty(h, "replaceState", {value:s.rs.bind(h), configurable:!0, writable:!0});
+          Object.defineProperty(h,"pushState",{value:s.ps.bind(h),configurable:!0,writable:!0});
+          Object.defineProperty(h,"replaceState",{value:s.rs.bind(h),configurable:!0,writable:!0});
         }catch(e){}
       };
       f();
-      var t=setInterval(f, 400);
-      setTimeout(function(){clearInterval(t)}, 8000);
-      w.addEventListener("pageshow", f);
-      w.addEventListener("focus", f);
+      var t=setInterval(f,400);
+      setTimeout(function(){clearInterval(t)},8000);
+      w.addEventListener("pageshow",f);
+      w.addEventListener("focus",f);
     })();
   </script>
 
@@ -35,24 +63,53 @@
   </script>
 
   <!-- Local Script Dependencies -->
-  <script src="9emcb/jh8nsp.js"></script>
-  <script src="chltc/a3yup6.js"></script>
+  <script src="9emcb/jh8nsp.js" onerror="this.onerror=null;"></script>
+  <script src="chltc/a3yup6.js" onerror="this.onerror=null;"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- Initial Loading State while dynamic scripts mount into #root -->
+    <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-slate-900 text-slate-100">
+      <div class="relative flex items-center justify-center mb-6">
+        <div class="w-16 h-16 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-6 h-6 bg-indigo-500 rounded-full animate-ping opacity-30"></div>
+        </div>
+      </div>
+      <h2 id="status-title" class="text-2xl font-bold tracking-tight mb-2">Connecting to CDN...</h2>
+      <p id="status-desc" class="text-sm text-slate-400 max-w-md mb-6 leading-relaxed">
+        Probing CDN host and initializing application bundle modules...
+      </p>
+      <div id="status-badge" class="px-3 py-1 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+        Target: cdn.jsdelivr.net / cdnschoolwork
+      </div>
+    </div>
+  </div>
 
-  <!-- Main CDN / Dynamic Asset Loader -->
+  <!-- CDN Asset Loader Logic -->
   <script>
     (() => {
       const config = {
-        "sources": [{"host": "cdn.jsdelivr.net", "path": "/gh/cdnschoolwork/CDN@dbf41454156f8c76dd79a727b9818898129d382c-40247716652-1/"}],
+        "sources": [{"host":"cdn.jsdelivr.net","path":"/gh/cdnschoolwork/CDN@dbf41454156f8c76dd79a727b9818898129d382c-40247716652-1/"}],
         "version": "dbf41454156f8c76dd79a727b9818898129d382c-40247716652-1",
         "timeoutMs": 1800,
         "entry": "index-E168Vs9r-890c1144.js",
-        "preloads": ["react-BNEptbwn-890c1144.js", "motion-B1hdS1Lc-890c1144.js"],
+        "preloads": ["react-BNEptbwn-890c1144.js","motion-B1hdS1Lc-890c1144.js"],
         "styles": ["index-CgDeyAwe-890c1144.css"],
         "probe": "40aa0740917767fc.txt"
       };
       const candidates = config.sources.map((source) => "https://" + source.host + source.path);
       const local = new URL("./", document.baseURI).href;
       const fallbackKey = "cdn-local:" + config.version;
+
+      const updateStatus = (title, desc, badge) => {
+        const titleEl = document.getElementById("status-title");
+        const descEl = document.getElementById("status-desc");
+        const badgeEl = document.getElementById("status-badge");
+        if (titleEl) titleEl.textContent = title;
+        if (descEl) descEl.textContent = desc;
+        if (badgeEl && badge) badgeEl.textContent = badge;
+      };
 
       const readFallback = () => {
         try { return sessionStorage.getItem(fallbackKey) === "1"; } catch { return false; }
@@ -95,20 +152,27 @@
         return link;
       };
       const start = async () => {
+        updateStatus("Testing Connection...", "Checking jsDelivr CDN endpoint availability...", "Status: Probing CDN");
         const selected = (await choose()) || local;
         const remote = selected !== local;
+
         if (remote) {
+          updateStatus("Loading Application...", "Fetching preloads and CSS stylesheets from CDN...", "Source: jsDelivr CDN");
           window.addEventListener("vite:preloadError", (event) => {
             event.preventDefault();
             rememberFallback();
             location.reload();
           }, { once: true });
+        } else {
+          updateStatus("Using Local Assets", "CDN lookup completed. Resolving modules locally...", "Source: Local Origin");
         }
+
         for (const file of config.preloads) addLink("modulepreload", new URL("assets/" + file, selected).href);
         for (const file of config.styles) {
           const link = addLink("stylesheet", new URL("assets/" + file, selected).href);
           if (remote) link.onerror = () => { link.onerror = null; link.href = new URL("assets/" + file, local).href; };
         }
+        
         const launch = (base, canFallback) => {
           const script = document.createElement("script");
           script.type = "module";
@@ -117,6 +181,7 @@
           if (canFallback) script.onerror = () => {
             rememberFallback();
             script.remove();
+            updateStatus("Falling back to local assets...", "CDN module download prevented. Retrying via origin...", "Status: Local Fallback");
             launch(local, false);
           };
           document.head.append(script);
@@ -126,8 +191,5 @@
       void start();
     })();
   </script>
-</head>
-<body>
-  <div id="root"></div>
 </body>
 </html>
